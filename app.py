@@ -1,22 +1,22 @@
 import requests
 from login_data import login
+from pprint import pprint
 
 class WorldCupApi:
-    def __init__(self, login_data):
-        self.base_url="http://api.cup2022.ir/api/v1/"
-        self.headers = {'Content-Type': 'application/json'}
-        self.login_data = login_data
-
-    def login (self):
-        url = self.base_url
-        url +="user/login"
+    def __init__(self):
+        self.base_url="https://api.football-data.org/v4/"
         
-        response = requests.post(url, headers=self.headers, json=self.login_data)
-        print(response)
-        r = response.json()
-        token = r.get('data').get('token')
-        return token
 
-cup = WorldCupApi(login)
-t = cup.login()
-print(t)
+    def get_matches (self, token):
+        url = self.base_url
+        url += "matches"
+        headers = { 'X-Auth-Token': token }
+        response = requests.get(url, headers=headers)
+        for match in response.json()['matches']:
+            pprint(match)
+        return response
+
+
+cup = WorldCupApi()
+token = open("token").read()
+matches = cup.get_matches(token)
