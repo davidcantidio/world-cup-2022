@@ -1,6 +1,5 @@
 import requests
 from pprint import pprint
-
 class WorldCupApi:
     def __init__(self):
         self.base_url="https://api.football-data.org/v4/"
@@ -17,5 +16,5 @@ class WorldCupApi:
 
 
 cup = WorldCupApi()
-token = open("token").read()
-matches = cup.get_matches(token=token)
+matches = cup.get_matches(token='0cfc9017d2e64feabaac965138ad845c')
+pprint(matches)
