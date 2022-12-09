@@ -13,6 +13,7 @@
 {% block content %}
 {% for i in all_matches %}
 <h2>{{i.homeTeam_name}} vs {{i.awayTeam_name}}</h2>
+<h5>{{i.score_fullTime_homeTeam}} - {{i.score_fullTime_awayTeam}} </h5>
 
 {% endfor %}
 
