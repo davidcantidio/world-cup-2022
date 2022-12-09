@@ -9,12 +9,29 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-   
+ 
 {% block content %}
+<div class="container"></div>
 {% for i in all_matches %}
-<h2>{{i.homeTeam_name}} vs {{i.awayTeam_name}}</h2>
-<h5>{{i.score_fullTime_homeTeam}} - {{i.score_fullTime_awayTeam}} </h5>
 
+<div class="row float-left">
+    <div class="col-md-12 mr-auto" style="width: 400px;margin-bottom:2em;">  
+        <small style="display:block;">{{i.startDate}}</small>  
+        <div class="float-left">
+        <img src= {{i.awayTeam_crest_url}} width="25" height="25" class="float-left" style="padding-right:5px">
+          <h5 style="margin:0;" class="float-left">{{i.awayTeam_name}}</h5>
+          <h6 style="display:block;float:left;" class={{i.awayTeam_score_color}}>{{i.score_fullTime_awayTeam}}</h6> 
+          <p class="float-left"> &nbsp; vs &nbsp; </p> 
+          <img src= {{i.homeTeam_crest_url}} width="25" height="25" class="float-left" style="padding-right:5px">
+          <h5 style="margin:0;" class="float-left">{{i.homeTeam_name}}</h5>
+          <h6 style="display:block;float:left" class={{i.homeTeam_score_color}}> {{i.score_fullTime_homeTeam}}</h6>
+          
+        </div>
+          
+          
+        </div>
+    </div>
+</div>
 {% endfor %}
 
 {% endblock %}
