@@ -125,4 +125,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRONJOBS = [('*/360 * * * * ', 'matches.cron.competitions')]
+CRONJOBS = [('*/1 * * * * ', 'matches.cron.competitions')]

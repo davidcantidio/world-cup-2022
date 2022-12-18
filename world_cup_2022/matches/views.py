@@ -6,8 +6,9 @@ from django.utils import timezone
 
 import requests
 from pprint import pprint
-from matches.models import Competition, Match
+from matches.models import  Match
 from datetime import date, datetime, timedelta
+from .forms import CompetitionForm
 import pytz
 
 timezone = pytz.timezone('America/Sao_Paulo')
@@ -17,6 +18,7 @@ yesterday = today + timedelta(days=-1)
 
 # Create your views here
 def matches(request):
+    select_competition_dropdown = CompetitionForm
     if request.method == "GET":
         selected_competition = '2000'
 
@@ -74,7 +76,12 @@ def matches(request):
                     m.score_fullTime_homeTeam = ""
                     m.score_fullTime_awayTeam = ""
 
-            
-        return render(request, 'base.html', {'all_matches':all_matches, 'today_matches':today_matches, 'past_matches':past_matches, 'future_matches':future_matches})
+            context = {
+                'select_competition_dropdown' : select_competition_dropdown,
+                'all_matches' : all_matches,
+                'future_matches': future_matches,
+                'past_matches': past_matches
+            }
+        return render(request, 'base.html', context=context)
 
 # 'all_matches':all_matches, 'today_matches':today_matches, 'future_matches':future_matches, 'past_matches':past_matches}ww

@@ -11,12 +11,9 @@
 <body>
 
     {% block content %}
-    <form id="post-form">
+    <form id="post-form" action="." method="post">
         {% csrf_token %}
-    <select name="selected_competition">
-    {%for c in all_competitions %}
-        <option id="competition" value={{c.id}}>{{c.name}}</option>
-    {% endfor %}
+        {{select_competition_dropdown}}
 
     </select>
     <input type="submit" value="Get Matches"" class="btn btn-primary">

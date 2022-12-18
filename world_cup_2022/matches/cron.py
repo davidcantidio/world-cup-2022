@@ -5,13 +5,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', '%s.settings' %PROJECT_NAME)
 import django
 django.setup()
 
-
 from matches.models import Competition
-
-# from matches.models import Competition
 import requests
 from pprint import pprint
-
 
 
 def competitions():
@@ -21,8 +17,6 @@ def competitions():
     competition_data = response.json()
 
     for c in competition_data.get('competitions'):
-        print (c)
-
         competitions = Competition(
             id = c['id'],
             area_code = c['area']['code'],
@@ -34,6 +28,5 @@ def competitions():
             name = c['name'],
             plan = c['plan'],
             competition_type = c['type'],
-        )
-        print('savedo to db')
+        )       
         competitions.save()

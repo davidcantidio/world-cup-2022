@@ -1,9 +1,27 @@
 from django.db import models
-from django.utils import timezone
 from datetime import datetime
 
 # Create your models here.
+class Competition(models.Model):
+    id = models.CharField(max_length=50, primary_key=True)
+    area_code = models.CharField(max_length=3, null=True)
+    area_flag = models.CharField(max_length=300, null=True)
+    area_name = models.CharField(max_length=30, null=True)
+    end_date = models.DateField(max_length=10, null=True)
+    start_date = models.DateField(max_length=10, null=True)
+    emblem = models.CharField(max_length=30, null=True)
+    name = models.CharField(max_length=30, null=True)
+    plan = models.CharField(max_length=30, null=True)
+    competition_type = models.CharField(max_length=30, null=True)
+
+    class Meta:
+        ordering = ('-name',)
+
+    def __str__(self):
+        return self.name
+
 class Match(models.Model):
+    competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
     id = models.CharField(max_length=50, primary_key=True)
     utcDateTime = models.DateTimeField()
     utcDate = models.DateField()
@@ -49,20 +67,3 @@ class Match(models.Model):
         event = self.utcDate
         return event.date() > datetime.today().date()
     
-class Competition(models.Model):
-    id = models.CharField(max_length=50, primary_key=True)
-    area_code = models.CharField(max_length=3, null=True)
-    area_flag = models.CharField(max_length=300, null=True)
-    area_name = models.CharField(max_length=30, null=True)
-    end_date = models.DateField(max_length=10, null=True)
-    start_date = models.DateField(max_length=10, null=True)
-    emblem = models.CharField(max_length=30, null=True)
-    name = models.CharField(max_length=30, null=True)
-    plan = models.CharField(max_length=30, null=True)
-    competition_type = models.CharField(max_length=30, null=True)
-
-    class Meta:
-        ordering = ('-name',)
-
-    def __str__(self):
-        return self.name
