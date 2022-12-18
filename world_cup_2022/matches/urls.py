@@ -3,7 +3,8 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.get_today_matches, name='get_today_matches'),
+    path('', views.matches, name='matches'),
+
     
 
 ]
