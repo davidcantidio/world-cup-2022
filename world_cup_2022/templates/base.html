@@ -11,18 +11,19 @@
 <body>
 
     {% block content %}
-    <form id="post-form" action="." method="post">
+    
+    <form id="select_competition_form"  method="POST">
         {% csrf_token %}
         {{select_competition_dropdown}}
 
     </select>
-    <input type="submit" value="Get Matches"" class="btn btn-primary">
-    </form>```
+    <input type="submit" value="Get Matches" class="btn btn-primary" id="competition">
+    </form>
 
     
 <div class="container float-left" style="background-color: rgb(223, 223, 223); padding:20px; width:50%;">
 	<h2>Today</h2>
-{% for i in today_matches %}
+    {% if i.is_today %}
 	<div class="row float-left" style="background-color: rgb(255, 255, 255);margin:10px 0 0 0;padding:10px; width:80%; border:1px solid; border-radius:10px">
         <div class="col-md-12 mr-auto">  
             <small style="display:block;">{{i.utcDate}} - {{i.stage}}</small>  
@@ -37,16 +38,16 @@
             </div>
     	</div>
 	</div>
-    {{% empty %}
+    {{% else %}
     <li>Sorry, no matches scheduled for today.</li>
-{% endfor %}
+    {% endif %}
 </div>
 
 
 
 <div class="container float-left" style="background-color: rgb(223, 223, 223); padding:20px; width:50%;">
 	<h2>Next...</h2>
-{% for i in future_matches %}
+{% for i in all_matches %}
 	<div class="row float-left" style="background-color: rgb(255, 255, 255);margin:10px 0 0 0;padding:10px; width:80%; border:1px solid; border-radius:10px">
     <div class="col-md-12 mr-auto">  
         <small style="display:block;">{{i.startDate}} {{i.stage}}</small>  
@@ -67,7 +68,7 @@
 
 <div class="container float-left" style="background-color: rgb(223, 223, 223); padding:20px; max-width:100%;">
 	<h2>Past Matches</h2>
-{% for i in past_matches %}
+{% for i in all_matches %}
 	<div class="row float-left" style="background-color: rgb(255, 255, 255);margin:10px 15px 0 0;padding:10px; width:30%; border:1px solid; border-radius:10px">
     <div class="col-md-12 mr-auto">  
         <small style="display:block;">{{i.utcDate}} {{i.stage}}</small>  
@@ -95,11 +96,11 @@
 
 </body>
 <script type="text/javascript">
-    $(document).on('submit', '#post-form', function(e){
+    $(document).on('submit', '#select_competition_form', function(e){
         e.preventDefalut();
         $.ajax({
             type:'POST',
-            url:'/competition',
+            url:'matches',
             data:{           
             competition:$('#competition').val(), 
             csrfmiddlwaretoken:$('input[name=csrfmiddlwaretoken]').val(),
