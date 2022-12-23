@@ -12,10 +12,10 @@ import json
 from datetime import datetime, timedelta
 
 today = datetime.now().date()
-dateFrom = today + timedelta(days=0)
+dateFrom = today + timedelta(days=-3)
 dateFrom = dateFrom.strftime("%Y-%m-%d")
 
-dateTo = today + timedelta(days=10)
+dateTo = today + timedelta(days=7)
 dateTo = dateTo.strftime("%Y-%m-%d")
 
 
@@ -41,6 +41,7 @@ def competitions():
             competition_type = c['type'],
         )       
         competitions.save()
+        pprint(datetime.now())
 
 # def gen_competition_ids():
     
@@ -61,7 +62,6 @@ def get_matches():
     # pprint(matches_url)
     response = requests.get(matches_url, headers=headers) 
     matches_data = response.json() 
-    pprint(matches_data)
     if matches_data.get('matches'):
         comp_queryset = Competition.objects.all()
         for d in matches_data.get('matches'):    
@@ -89,9 +89,8 @@ def get_matches():
                         score_fullTime_homeTeam = d['score']['fullTime']['home'],
                         )
                     matches.save()
+                    pprint(datetime.now())
             
 if __name__ == '__main__':
     django.setup()
-    # get_matches()
-    for m in Match.objects.all():
-        print(m.is_in_past)
+    get_matches()

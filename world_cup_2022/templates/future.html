@@ -1,0 +1,47 @@
+{% extends 'base.html' %}    
+
+{% block future %}
+<div class="float-left">
+    <h2>Future</h2>
+    {% for i in future_matches %}
+        <div class="row row-matches">
+            <div class="col-sm">  
+                <small class="match-date"> 
+                    {{i.utcDate}} - {{i.stage}}
+                </small>  
+                
+                    <div class="float-left"> 
+                        <img class="team-crest" src= {{i.awayTeam_crest_url}}> 
+                        <h6 class="match-summary" >
+                            {{i.awayTeam_name}}
+                        </h6>
+
+                        <h6 class="match_summary"  >
+                            {{i.score_fullTime_awayTeam}}
+                        </h6> 
+                    </div>          
+                    
+                    <div class="float-left"> 
+                        <p class="match_summary" > &nbsp; vs &nbsp; </p> 
+                    </div>    
+
+                    <div class="float-left">     
+                        <img  class="team-crest" src= {{i.homeTeam_crest_url}}>
+                        <h6 class="match_summary">
+                            {{i.homeTeam_name}}
+                        </h6>                      
+                        <h6 class="match_summary">
+                             {{i.score_fullTime_homeTeam}}
+                            </h6>
+                    </div>            
+                
+                
+            </div>
+            
+        </div>
+        {% empty %}   
+        <li>Sorry, no matches scheduled for today.</li>     
+        {% endfor %}
+    {% endblock %}   
+    </div>    
+  

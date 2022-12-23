@@ -9,4 +9,3 @@ class CompetitionForm(forms.Form):
                 for competition in Competition.objects.all()]
 
         self.fields['competitions'] = forms.ChoiceField(choices=choices)
-    # name =  forms.ChoiceField(choices=(self.fields))

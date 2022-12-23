@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+<body>
+<form id="select_competition_form"  method="POST">
+    {% csrf_token %}
+    {{select_competition_dropdown}}
+
+</select>
+<input type="submit" value="Get Matches" class="btn btn-primary" id="competition">
+</form>

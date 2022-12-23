@@ -18,30 +18,31 @@ yesterday = today + timedelta(days=-1)
 # Create your views here
 def matches(request):
     select_competition_dropdown = CompetitionForm
+
     if request.method == "POST":
         selected_competition = request.POST['competitions']
-        all_matches =  Match.objects.filter(competition__id=selected_competition).order_by('-utcDateTimeString')
 
-        context = {
-            'select_competition_dropdown' : select_competition_dropdown,
-            'all_matches' : all_matches,        
-        }
+        #set timestamp for this competition as lastly accessed
         this_competition = Competition.objects.get(pk=selected_competition)
         this_competition.lastly_accessed = datetime.now() 
         this_competition.save()
+
+    else: 
+        selected_competition = '2000'
+    
+    all_matches =  Match.objects.filter(competition__id=selected_competition).order_by('-utcDateTimeString')
+    past_matches = ([i for i in all_matches if i.is_in_past])
+    today_matches = ([i for i in all_matches if i.is_today])
+    future_matches = ([i for i in all_matches if i.is_in_future])
+    
+    context = {
+        'select_competition_dropdown' : select_competition_dropdown,
+        'all_matches' : all_matches,  
+        'today_matches' : today_matches,
+        'future_matches' : future_matches,
+        'past_matches' : past_matches
+    }
+
+    return render(request, 'matches.html', context=context)
         
-        print (f'lA: {this_competition.lastly_accessed}')
-        return render(request, 'base.html', context=context)
-        
-    else:
-        all_matches =  Match.objects.filter(competition__id='2000').order_by('-utcDateTimeString')
-
-        context = {
-            'select_competition_dropdown' : select_competition_dropdown,
-            'all_matches' : all_matches,        
-        }
-        return render(request, 'base.html', context=context)
-
-
-
-# 'all_matches':all_matches, 'today_matches':today_matches, 'future_matches':future_matches, 'past_matches':past_matches}ww
+    

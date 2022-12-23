@@ -1,0 +1,24 @@
+{% extends 'future.html' %}
+{% block past%}
+<div class="container float-left" style="background-color: rgb(223, 223, 223); padding:20px; max-width:100%;">
+	<h2>Past Matches</h2>
+{% for i in all_matches %}
+	<div class="row float-left" style="background-color: rgb(255, 255, 255);margin:10px 15px 0 0;padding:10px; width:30%; border:1px solid; border-radius:10px">
+    <div class="col-md-12 mr-auto">  
+        <small style="display:block;">{{i.utcDate}} {{i.stage}}</small>  
+        <div class="float-left">
+            <img src= {{i.awayTeam_crest_url}} width="25" height="25" class="float-left" style="padding-right:5px">
+            <h6 style="margin:0;" class="float-left">{{i.awayTeam_name}}&nbsp</h6>
+            <h5 style="display:block;float:left;" class={{i.awayTeam_score_color}}>{{i.score_fullTime_awayTeam}}</h6> 
+            <p class="float-left"> &nbsp; vs &nbsp; </p> 
+            <img src= {{i.homeTeam_crest_url}} width="25" height="25" class="float-left" style="padding-right:5px">
+            <h6 style="margin:0;" class="float-left">{{i.homeTeam_name}} &nbsp</h6>
+            
+            <h5 style="display:block;float:left"> {{i.score_fullTime_homeTeam}}</h6>
+            &nbsp
+        </div>
+    	</div>
+	</div>
+{% endfor %}
+</div>
+{% endblock %}

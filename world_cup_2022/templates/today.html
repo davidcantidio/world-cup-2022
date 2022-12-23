@@ -1,0 +1,25 @@
+{% extends 'header.html'}    
+{% block today %}
+<div class="container float-left" style="background-color: rgb(223, 223, 223); padding:20px; width:50%;">
+	<h2>Today</h2>
+    {% if i.is_today %}
+	<div class="row float-left" style="background-color: rgb(255, 255, 255);margin:10px 0 0 0;padding:10px; width:80%; border:1px solid; border-radius:10px">
+        <div class="col-md-12 mr-auto">  
+            <small style="display:block;">{{i.utcDate}} - {{i.stage}}</small>  
+            <div class="float-left">
+                <img src= {{i.awayTeam_crest_url}} width="25" height="25" class="float-left" style="padding-right:5px">
+                <h6 style="margin:0;" class="float-left">{{i.awayTeam_name}}</h6>
+                <h6 style="display:block;" class={{i.awayTeam_score_color}}>{{i.score_fullTime_awayTeam}}</h6> 
+                <p class="float-left"> &nbsp; vs &nbsp; </p> 
+                <img src= {{i.homeTeam_crest_url}} width="25" height="25" class="float-left" style="padding-right:5px">
+                <h6 style="margin:0;" class="float-left">{{i.homeTeam_name}}</h6>
+                <h6 style="display:block;float:left" class={{i.homeTeam_score_color}}> {{i.score_fullTime_homeTeam}}</h6>
+            </div>
+    	</div>
+	</div>
+    {{% else %}
+    <li>Sorry, no matches scheduled for today.</li>
+    {% endif %}
+</div>
+{% endblock %}
+
